@@ -2,492 +2,335 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects</title>
-    
-    <style type="text/css">
-        *{
+    <title>Responsive Boxes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        /* Common styles */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            /* font-family: ; */
-            box-sizing: border-box;
-
+            background-color: rgb(0, 0, 0);
         }
 
-body{
-	background: var(--bg-color);
-	color: var(--text-color);
-}
-:root{
-	--bg-color: #2a2a2a;
-	--second-bg-color: #202020;
-	/* --text-color: #fff; */
-	--text-color: #f2f2f2;
-}
+        /* Styles for responsive grid */
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
 
-        .title{
+        .column {
+            float: left;
             width: 100%;
-            margin: 10px;
-            font-size: 30px;
-            color: #00d5ff;
-            text-decoration: none;
-        }
-        a{
-            text-decoration:none;
-            color: #00d5ff;
-
-        }
-        .project_title{
-            text-align: center;
-            font-size: 30px;
-
+            padding: 10px;
         }
 
-        .project-menu{
-            width: 100%;
-            height: auto;
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            /* justify-content: space-around; */
+        /* Responsive layout - large screens */
+        @media screen and (min-width: 992px) {
+            .column {
+                width: 33.33%;
+            }
         }
-        .project-menu-items{
-            /* width: 100px; */
-            font-size: 20px;
-            text-align: center;
-            background: #454b4a;
-            color: #b8eee7;
+
+        /* Responsive layout - medium screens */
+        @media screen and (max-width: 991px) and (min-width: 567px) {
+            .column {
+                width: 50%;
+            }
+        }
+
+        /* Responsive layout - small screens */
+        @media screen and (max-width: 567px) {
+            .column {
+                width: 100%;
+            }
+        }
+
+        /* Box styles */
+        .box {
+            position: relative;
+            border: 1px solid #ffffff;
             border-radius: 5px;
-            margin: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            height: 400px; /* Fixed height for all boxes */
+        }
+
+        .box img {
+            width: 100%;
+            height: 40%;
+            object-fit: cover;
+        }
+
+        .box .header {
+            background-color: #ffffff;
+            padding: 10px;
+            font-size: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             cursor: pointer;
         }
 
+        .box .menu-btn {
+            cursor: pointer;
+        }
 
+        .box .content {
+            color: beige;
+            padding: 10px;
+            height: 50%;
+            overflow-y: auto; /* Enable scrolling for description */
+        }
 
-        .flex-container{
+        /* Content styles */
+        .content-detail {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: auto;
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            /* justify-content: center; */
-            justify-content: space-around;
-            /* justify-content: space-between; */
-        }
-        .flex-box{
-            width: 200px;
-            height: 100px;
-             background: linear-gradient(rgb(83, 214, 214),rgb(0, 184, 110));
-            color: black;
-            font-size: 2px;
-            text-align: center;
-            /* line-height: 200px;  for all content in center */
-            line-height: 200px; 
-            border-radius: 10px;
-            margin: 10px;
-        }
-        .flex-box img{
-            width: 200px;
-            height: 100px;
-            border-radius: 10px;
-
-
- 
+            height: 100%;
+            background-color: #000000;
+            padding: 10px;
+            box-sizing: border-box;
+            display: none;
         }
 
+        .box.show-detail .content-detail {
+            display: block;
+        }
 
+        .box.show-detail .content {
+            display: block;
+        }
 
+        .close-btn {
+            cursor: pointer;
+        }
 
+        .menu-burger{
+             
+            width: 20px;
+            height: 1px;
+            background-color: black;
+            margin: 3px 0;
+              
+        }
 
-        input{
-    display: none;
-
-}
-
-#all:checked ~ .flex-container .flex-box .photo{
-    opacity: 1;
-    transform: scale(1);
-    position: relative;
-    transition: .5s;
-}
-/* #Tableau:checked ~ .flex-container  .Tableau{
-    transform: scale(1);
-    opacity: 1;
-    position: relative;
-}
-/* #Tableau:checked ~ .flex-container  .DA, 
-#Tableau:checked ~ .flex-container  .PowerBI{
-    transform: scale(0);
-    opacity: 0;
-    position: absolute;
-    transition: 0s;
-} */
-
-#DA:checked ~ .flex-container  .DA{
-    /* transform: scale(1); */
-    opacity: 1;
-    position: relative;
-}
-#DA:checked ~ .flex-container  .PY,
-#DA:checked ~ .flex-container  .DE,
-#DA:checked ~ .flex-container  .DJ,
-#DA:checked ~ .flex-container  .SQL,
-#DA:checked ~ .flex-container  .CLOUD,
-#DA:checked ~ .flex-container  .DS{
-    transform: scale(0);
-    opacity: 0;
-    position: absolute;
-    transition: 0s;
-}
-
-
-
-#DE:checked ~ .flex-container  .DE{
-    opacity: 1;
-    position: relative;
-}
-#DE:checked ~ .flex-container  .PY,
-#DE:checked ~ .flex-container  .DA,
-#DE:checked ~ .flex-container  .DJ,
-#DE:checked ~ .flex-container  .SQL,
-#DE:checked ~ .flex-container  .CLOUD,
-#DE:checked ~ .flex-container  .DS{
-    transform: scale(0);
-    opacity: 0;
-    position: absolute;
-    transition: 0s;
-}
-
-#CLOUD:checked ~ .flex-container  .CLOUD{
-    opacity: 1;
-    position: relative;
-}
- 
-#CLOUD:checked ~ .flex-container  .PY,
-#CLOUD:checked ~ .flex-container  .DA,
-#CLOUD:checked ~ .flex-container  .DJ,
-#CLOUD:checked ~ .flex-container  .SQL,
-#CLOUD:checked ~ .flex-container  .DE,
-#CLOUD:checked ~ .flex-container  .DS{
-    transform: scale(0);
-    opacity: 0;
-    position: absolute;
-    transition: 0s;
-}
-
-
-
- 
-#DS:checked ~ .flex-container  .DS{
-    opacity: 1;
-    position: relative;
-}
- 
-#DS:checked ~ .flex-container  .PY,
-#DS:checked ~ .flex-container  .DA,
-#DS:checked ~ .flex-container  .DJ,
-#DS:checked ~ .flex-container  .SQL,
-#DS:checked ~ .flex-container  .DE,
-#DS:checked ~ .flex-container  .CLOUD{
-    transform: scale(0);
-    opacity: 0;
-    position: absolute;
-    transition: 0s;
-}
-
-#DJ:checked ~ .flex-container  .DJ{
-    opacity: 1;
-    position: relative;
-}
- 
-#DJ:checked ~ .flex-container  .PY,
-#DJ:checked ~ .flex-container  .DA,
-#DJ:checked ~ .flex-container  .DS,
-#DJ:checked ~ .flex-container  .SQL,
-#DJ:checked ~ .flex-container  .DE,
-#DJ:checked ~ .flex-container  .CLOUD{
-    transform: scale(0);
-    opacity: 0;
-    position: absolute;
-    transition: 0s;
-}
-#SQL:checked ~ .flex-container  .SQL{
-    opacity: 1;
-    position: relative;
-}
- 
-#SQL:checked ~ .flex-container  .PY,
-#SQL:checked ~ .flex-container  .DA,
-#SQL:checked ~ .flex-container  .DJ,
-#SQL:checked ~ .flex-container  .DS,
-#SQL:checked ~ .flex-container  .DE,
-#SQL:checked ~ .flex-container  .CLOUD{
-    transform: scale(0);
-    opacity: 0;
-    position: absolute;
-    transition: 0s;
-}
-#PY:checked ~ .flex-container  .PY{
-    opacity: 1;
-    position: relative;
-}
- 
-#PY:checked ~ .flex-container  .DS,
-#PY:checked ~ .flex-container  .DA,
-#PY:checked ~ .flex-container  .DJ,
-#PY:checked ~ .flex-container  .SQL,
-#PY:checked ~ .flex-container  .DE,
-#PY:checked ~ .flex-container  .CLOUD{
-    transform: scale(0);
-    opacity: 0;
-    position: absolute;
-    transition: 0s;
-}
-
-
-
-
-/* css file  */
-
-.project input{
-    display: none;
-
-}
-
-
-
-
-        
-   
-footer{
-    text-align: center;
-    -webkit-transition: .5s ease-in-out;
-    position: absolute;
-    color: azure;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    /* min-width: 967px; */
-    /* font-size: 20px; */
-    /* height: px; */
-    background-color: #212121;
-    /* margin: 0 0 0 0; */
-    padding-bottom: 5px;
-    display: inline-block;
-    white-space: nowrap;
-
-}
-
-
-
-/* contacts */
-
- 
- 
-
-.contact-icons i{
-	height: 40px;
-	width: 40px;
-	background: #06d9ba;
-	color:  #f2f2f2;
-	font-size: 23px;
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	border-radius: 8px;
-	margin-right: 15px;
- 	transition: all .45s ease;
-
-}
-.contact-icons {
- 	text-align: center;
-}
-
-.contact-icons i:hover{
-	background:  #f2f2f2;
-	color: #06d9ba;
-}
-
- 
-
- 
-     
-html{
-    height: 100%;
-}
-
-body{
-    background-color: #2a2a2a;
-     color: #ffffff;  
-     position: relative;
-     margin: 0;
-     min-height: 100%;
-     padding-bottom: 6.74rem;
-     box-sizing: inherit;
-}
-
- 
-
-
- 
-
-@media (max-width:660px) {
-    .title{
-        font-size: 20px;
-    }
-    .project-menu{
-        width: 100%;
-        height: auto;
-        /* display: flex; */
-        flex-direction: row;
-        flex-wrap: wrap;
-        /* justify-content: space-around; */
-    }
-    .project-menu-items{
-        width:auto;
-        font-size: 15px;
-        text-align: center;
-        background: #454b4a;
-        color: #b8eee7;
-        border-radius: 5px;
-        margin: 10px;
-        cursor: pointer;
-    }
-
-
-
-
-
-
-
-
-   
-
-    }
+        .content a{
+            position: absolute;
+            bottom: 0; 
+            right: 0;
+            padding: 10px;
+            color: #ffffff;
+        }
 
     </style>
-    <!-- <link rel="stylesheet" href="project.css"> -->
-    <link rel="stylesheet"
-    href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
-  
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="icon" 
-       type="image/png" 
-       href="./ks23.code-logo.png">
-
-
 </head>
 <body>
-    <div class="title"><a href="https://kishansutariya23.github.io/" target="_blank" rel="noopener noreferrer">KishanData23</a></div>
-    <div class="project_title">My projects</div>
-    <HR></HR>
-    <marquee behavior="" direction="">Under manintaince but some links will work</marquee>
 
-    <hr>
-    <input type="radio" name="photos" id="ALL" checked>
-     <input type="radio" name="photos" id="PY">
-    <input type="radio" name="photos" id="DA">
-      <input type="radio" name="photos" id="DE">  
-    <input type="radio" name="photos" id="DJ">
-    <input type="radio" name="photos" id="DS"> 
-    <input type="radio" name="photos" id="SQL">
-    <input type="radio" name="photos" id="CLOUD">
-      <!-- <input type="radio" name="photos" id="check5">  -->
-  <!-- <br><br> -->
- 
-
-    <div class="project-menu">
-        <label for="ALL"><div class="project-menu-items">All Projects</div></label> 
-        <label for="PY"><div class="project-menu-items">Python</div></label>
-        <label for="DA"><div class="project-menu-items">Data Analyst</div></label>
-        <!-- <label for="DE"><div class="project-menu-items">Data Engineer</div></label> -->
-        <label for="DJ"><div class="project-menu-items">Django</div></label>
-        <!-- <label for="DS"><div class="project-menu-items">Data Scientist</div></label> -->
-        <!-- <label for="SQL"><div class="project-menu-items">SQL</div></label> -->
-        <!-- <label for="CLOUD"><div class="project-menu-items">Cloud Projects</div></label> -->
-    </div>
-    <HR></HR>
-<BR></BR> 
-
-    <div class="flex-container">
-
-
-        <!-- <div class="photo DA Tableau">
-            <img src="img/Portfolio Tableau.png">
-              <div class="layer">
-                <h5>Tableau Public Portfolio</h5>
-                <p>  All MY Tableau Projects are just click away </p>
-                <div class="link-icon" style="display:flex; gap:5px">
-                   <a href="https://public.tableau.com/app/profile/sutariya.kishankumar">
-                     <i class='bx bx-link-external' ></i>
-                   </a>
+<div class="row">
+    <div class="column">
+        <div class="box">
+            <img src="./Anime Tattoo Girl.jpg" alt="Image">
+            <div class="header">
+                Exploratory Data Analysis (EDA) & Feature Engineering
+                <span class="menu-btn">
+                    <div class="menu-burger"></div>
+                    <div class="menu-burger"></div>
+                    <div class="menu-burger"></div>
+                </span>
+            </div>
+            <div class="content">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ducimus minus obcaecati itaque, magnam ullam quisquam hic ipsa praesentium temporibus similique unde! Earum ratione necessitatibus nostrum autem voluptate eaque qui?
+             </div>
+            <div class="content-detail">
+                <div class="header">
+                    Projects
+                    <span class="close-btn">X</span>
                 </div>
-              </div>
-           </div> 
-        </div> -->
-
-
-        <div class="flex-box photo PY"><a href="https://flask-projects-kishandata23.vercel.app/guess_number" target="_blank" rel="noopener noreferrer" style="cursor: pointer;"><img src="./images/flask_guess_number.png" alt="" srcset=""  ></a></div>
-        <div class="flex-box photo PY"><a href="https://flipkart-web-scrapping-kishansutariya23.vercel.app/" target="_blank" rel="noopener noreferrer" style="cursor: pointer;"><img src="./images/Flipkart_Web_Scrapping.jpg" alt="" srcset=""  ></a></div>
-        <div class="flex-box photo DA  "><a href="https://public.tableau.com/app/profile/sutariya.kishankumar" target="_blank" rel="noopener noreferrer" style="cursor: pointer;"><img src="./images/Portfolio Tableau.png"  ></a></div>
-        <div class="flex-box photo  PY"><img src="./images/data pro comming soon.png"  ></div>
-        <div class="flex-box photo PY"><a href="https://flask-projects-kishandata23.vercel.app/" target="_blank" rel="noopener noreferrer" style="cursor: pointer;"><img src="./images/all_flask_project.png" alt="" srcset=""  ></a></div>
-        <div class="flex-box photo DJ"><a href="https://employee-management-system-kishandata23.vercel.app/" target="_blank" rel="noopener noreferrer" style="cursor: pointer;"><img src="./images/EMS.png" alt="" srcset=""  ></a></div>
-        <div class="flex-box photo DA"><a href="https://github.com/kishandata23/EDA-FE" target="_blank" rel="noopener noreferrer" style="cursor: pointer;"><img src="./images/EDA_FE.png" alt="" srcset=""  ></a></div>
-
-        <!-- <div class="flex-box photo DE "><img src="./data pro comming soon.png"  ></div>
-        <div class="flex-box photo DS"><h5>Image Scrapping comming soon...</h5></div>
-        <div class="flex-box photo SQL"><h5>Image Scrapping comming soon...</h5></div>
-        <div class="flex-box photo DJ"><h5>Image Scrapping comming soon...</h5></div>
-        <div class="flex-box photo CLOUD"><h5>Image Scrapping comming soon...</h5></div> -->
+                <div class="content">
+                    <!-- <h3>Detail Content 1</h3> -->
+                    <ul>
+                        <li>Zomato Sales Analysis</li>
+                        <li>Black Friday</li>
+                        <li>Flight Price Prediction</li>
+                    </ul>
+                    <a href="https://github.com/kishandata23/EDA-FE">  
+                        <i class="fa-regular fa-share-from-square"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
-  
+    <!-- Add more columns as needed -->
+
+    <div class="column">
+        <div class="box">
+            <img src="./Anime Tattoo Girl.jpg" alt="Image">
+            <div class="header">
+                Flipkart Web Scrapping
+                <span class="menu-btn">
+                    <div class="menu-burger"></div>
+                    <div class="menu-burger"></div>
+                    <div class="menu-burger"></div>
+                </span>
+            </div>
+            <div class="content">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ducimus minus obcaecati itaque, magnam ullam quisquam hic ipsa praesentium temporibus similique unde! Earum ratione necessitatibus nostrum autem voluptate eaque qui?
+            </div>
+            <div class="content-detail">
+                <div class="header">
+                    Detail
+                    <span class="close-btn">X</span>
+                </div>
+                <div class="content">
+                    <!-- <h3>Detail Content 1</h3> -->
+                    <ul>
+                        <li>Python</li>
+                        <li>Flask</li>
+                       
+                    </ul>
+                    <a href="https://github.com/kishandata23/flipkart-web-scrapping">  
+                        <i class="fa-regular fa-share-from-square"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
+    <div class="column">
+        <div class="box">
+            <img src="./Anime Tattoo Girl.jpg" alt="Image">
+            <div class="header">
+                Header 1
+                <span class="menu-btn">
+                    <div class="menu-burger"></div>
+                    <div class="menu-burger"></div>
+                    <div class="menu-burger"></div>
+                </span>
+            </div>
+            <div class="content">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ducimus minus obcaecati itaque, magnam ullam quisquam hic ipsa praesentium temporibus similique unde! Earum ratione necessitatibus nostrum autem voluptate eaque qui?
+            </div>
+            <div class="content-detail">
+                <div class="header">
+                    Detail 1
+                    <span class="close-btn">X</span>
+                </div>
+                <div class="content">
+                    <!-- <h3>Detail Content 1</h3> -->
+                    <ul>
+                        <li>Point 1</li>
+                        <li>Point 2</li>
+                        <li>Point 3</li>
+                    </ul>
+                    <a href="#">  
+                        <i class="fa-regular fa-share-from-square"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
+    <div class="column">
+        <div class="box">
+            <img src="./Anime Tattoo Girl.jpg" alt="Image">
+            <div class="header">
+                Header 1
+                <span class="menu-btn">
+                    <div class="menu-burger"></div>
+                    <div class="menu-burger"></div>
+                    <div class="menu-burger"></div>
+                </span>
+            </div>
+            <div class="content">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ducimus minus obcaecati itaque, magnam ullam quisquam hic ipsa praesentium temporibus similique unde! Earum ratione necessitatibus nostrum autem voluptate eaque qui?
+            </div>
+            <div class="content-detail">
+                <div class="header">
+                    Detail 1
+                    <span class="close-btn">X</span>
+                </div>
+                <div class="content">
+                    <!-- <h3>Detail Content 1</h3> -->
+                    <ul>
+                        <li>Point 1</li>
+                        <li>Point 2</li>
+                        <li>Point 3</li>
+                    </ul>
+                    <a href="#">  
+                        <i class="fa-regular fa-share-from-square"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-   
-    <br><br>
-    <br><br>
-               
-    
-    <footer>
+    <div class="column">
+        <div class="box">
+            <img src="./Anime Tattoo Girl.jpg" alt="Image">
+            <div class="header">
+                Header 1
+                <span class="menu-btn">
+                    <div class="menu-burger"></div>
+                    <div class="menu-burger"></div>
+                    <div class="menu-burger"></div>
+                </span>
+            </div>
+            <div class="content">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ducimus minus obcaecati itaque, magnam ullam quisquam hic ipsa praesentium temporibus similique unde! Earum ratione necessitatibus nostrum autem voluptate eaque qui?
+            </div>
+            <div class="content-detail">
+                <div class="header">
+                    Detail 1
+                    <span class="close-btn">X</span>
+                </div>
+                <div class="content">
+                    <!-- <h3>Detail Content 1</h3> -->
+                    <ul>
+                        <li>Point 1</li>
+                        <li>Point 2</li>
+                        <li>Point 3</li>
+                    </ul>
+                    <a href="#">  
+                        <i class="fa-regular fa-share-from-square"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+<!-- JavaScript to toggle content detail -->
+<script>
+    var menuBtns = document.querySelectorAll('.menu-btn');
+    var closeBtns = document.querySelectorAll('.close-btn');
 
+    menuBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var box = this.parentElement.parentElement;
+            box.classList.toggle('show-detail');
+        });
+    });
 
-       <marquee behavior="" direction="">if anything not working properly try to reach me with contact given. Thank you 👨‍💻</marquee>
-       
-       <div class="contact-icons">
-           <a href="https://kishansutariya23.github.io/" target="_blank"><i class='bx bxs-id-card' ></i></a>
-           <a href="https://github.com/kishandata23" target="_blank"><i class='bx bxl-github' ></i></a>
-           <a href="https://www.linkedin.com/in/kishankumar-sutariya/" target="_blank"><i class='bx bxl-linkedin' ></i></a>
-           <a href="https://www.instagram.com/kishandata23/" target="_blank"><i class='bx bxl-instagram-alt' ></i></a>
-           <a href="https://www.youtube.com/@kishandata23" target="_blank"><i class='bx bxl-youtube' ></i></a>
-           <a href="https://twitter.com/ks23_code" target="_blank"><i class='bx bxl-twitter' ></i></a>
-            
-           <br>
-       </div>
-       <!-- <div class="links">
-           <div class="flex"><a class='text-decoration-none  alert-link' href="https://github.com/kishansutariya23" target="_blank"><button type="button" class="btn btn-outline-secondary"><i class='bx bxl-github'></i></button></i>  </a></div>
-           <div class="flex"> <a class='text-decoration-none alert-link' href="https://kishansutariya23.github.io/" target="_blank"><button type="button" class="btn btn-outline-success"><i class='bx bx-id-card'></i></button></i> </a></div>
-           <div class="flex"> <a class='text-decoration-none alert-link' href="https://www.instagram.com/ks23code/" target="_blank"><button type="button" class="btn btn-outline-danger"><i class='bx bxl-instagram-alt'></i></button></i>  </a></div>
-        
-           <div class="flex"> <a class='text-decoration-none alert-link' href="https://www.linkedin.com/in/kishankumar-sutariya/" target="_blank"><button type="button" class="btn btn-outline-primary"><i class='bx bxl-linkedin'></i></button></i>  </a></div>
-           <div class="flex"><a class='text-decoration-none alert-link' href="https://twitter.com/ks23_code" target="_blank"><button type="button" class="btn btn-outline-info"><i class='bx bxl-twitter'></i></button></i>  </a></div>
-           <div class="flex">  <a class='text-decoration-none alert-link' href="https://www.youtube.com/@ks23code" target="_blank"><button type="button" class="btn btn-outline-danger"><i class='bx bxl-youtube'></i></button></i> </a></div>
-        </div> -->
-       
-       <br>
-       Terms & Conditions <br>
-       Copyright ©️ <script>document.write(new Date().getFullYear())</script> username : kishandata23 <br>
-       Hosted on   <img width="24" height="24" src="https://img.icons8.com/external-tal-revivo-bold-tal-revivo/24/external-github-with-cat-logo-an-online-community-for-software-development-logo-bold-tal-revivo.png" alt="external-github-with-cat-logo-an-online-community-for-software-development-logo-bold-tal-revivo"/>
-   </footer>
-   
+    closeBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var box = this.parentElement.parentElement.parentElement;
+            box.classList.remove('show-detail');
+        });
+    });
+</script>
+
 </body>
 </html>
